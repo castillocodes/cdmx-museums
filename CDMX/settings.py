@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'museos.app',
+    'museos_app',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
