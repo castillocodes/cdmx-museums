@@ -27,7 +27,7 @@ class User(models.Model):
 
 class Museum(models.Model):
     museum = models.CharField(max_length=50)
-    price = models.FloatField()
+    price = models.DecimalField(max_digits=5, decimal_places=2)
     address = models.CharField(max_length=200)
 
     def __str__(self):

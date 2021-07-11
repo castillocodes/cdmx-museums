@@ -1,33 +1,42 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, redirect
+from .models import *
+from django.contrib import messages
+import bcrypt
 
 # Create your views here.
 def index(request):
-    return render (request, "index.html")
+    context= {
+        'museums': Museum.objects.all()
+    }
+    return render (request, "index.html", context)
 
 def signup(request):
-    print(request.POST)
-    errors = User.objects.basic_validator(request.POST)
-    print (errors)
-    if len(errors) > 0:
-        for key, value in errors.items():
-            messages.error(request, value)
-        return redirect('/')
-    new_user = User.objects.create(first_name=request.POST['fname'], last_name=request.POST['lname'], email=request.POST['email'], password=request.POST['pw'])
-    request.session['user'] = new_user.first_name
-    request.session['id'] = new_user.id
-    return redirect('/success')
+    if request.method == "POST":
+        errors = User.objects.basic_validator(request.POST)
+        if errors:
+            for e in errors.values():
+                messages.error(request, e)
+            return redirect('/signup')
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        email = request.POST['email']
+        password = request.POST['password']
+        pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+        User.objects.create(first_name=first_name, last_name=last_name, email=email, password=pw_hash)
+        return redirect('/login')
+    return render(request, 'signup.html')
 
 def login(request):
-    print(request.POST)
-    logged_user = User.objects.filter(email=request.POST['email'])
-    if len(logged_user) > 0:
-        logged_user = logged_user[0]
-        if logged_user.password == request.POST['pw']:
-            request.session['user'] = logged_user.first_name
-            request.session['id'] = logged_user.id
-            return redirect('/success')
-    messages.error(request, 'Email / Password invalid')
-    return redirect('/')
+    if request.method == "POST":
+        email = request.POST['email']
+        password = request.POST['password']
+        if not User.objects.authenticate(email, password):
+            messages.error(request, 'Invalid email/password')
+            return redirect('/login')
+        user = User.objects.get(email=email)
+        request.session['user_id'] = user.id
+        return redirect('/')
+    return render(request, 'login.html')
 
 def logout(request):
     print(request.session)
