@@ -1,6 +1,5 @@
 from django.db import models
 import re
-
 from django.db.models.fields import DateTimeField
 
 # Create your models here.
