@@ -99,22 +99,34 @@ def dashboard(request):
     }
     return render(request, 'dashboard.html', context)
 
-def edit_rating_opinion(request, museum_id):
-    museum = Museum.objects.get(id=museum_id)
+def contributions(request):
+    user = User.objects.get(id=request.session['user_id'])
+    all_museums = Museum.objects.all()
+    all_opinions = Opinion.objects.all()
+    context = {
+        "user" : user,
+        "all_museums" : all_museums,
+        "all_opinions" : all_opinions,
+        "museums": Museum.objects.all()
+    }
+    return render(request, 'your_ratings.html', context)
+
+def edit_rating_opinion(request, id):
+    museum = Museum.objects.get(id=id)
     museum_rating = Rating.objects.get(museum=museum)
-    museum_opinion = Rating.objects.get(museum=museum)
+    museum_opinion = Opinion.objects.get(museum=museum)
     context = {
         "rating": museum_rating,
-        "opinion": museum_opinion
+        "opinion": museum_opinion,
+        "museum" : museum
     }
     return render(request, 'edit_opinion.html', context)
 
-def modify_edit_opinion(request):
+def modify_edit_opinion(request, id):
     if request.method == "POST":
         edited_rating = request.POST['rating']
         edited_opinion = request.POST['opinion']
-        museum_id = request.POST['museum_id']
-        museum = Museum.objects.get(id=museum_id)
+        museum = Museum.objects.get(id=id)
         user = User.objects.get(id=request.session['user_id'])
         rating_query = Rating.objects.filter(museum=museum).filter(user=user)
         rating = rating_query[0]
@@ -127,7 +139,7 @@ def modify_edit_opinion(request):
         rating.save()
         opinion.text = edited_opinion
         opinion.save()
-    return redirect('/')
+    return redirect('/dashboard')
 
 def rate_feed(request):
     all_ratings = Rating.objects.all()

@@ -26,12 +26,12 @@
                             <a class="nav-link" href="/signup">Signup</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Contributions</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Rate Feed</a>
+                            <a class="nav-link" href="/rate-feed">Rate Feed</a>
                         </li>
                         {% if 'user_id' in request.session %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/your-ratings">Your Ratings</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/dashboard">Dashboard</a>
                         </li>
