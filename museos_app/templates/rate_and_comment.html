@@ -33,7 +33,7 @@
                         </li>
                         {% if 'user_id' in request.session %}
                         <li class="nav-item">
-                            <a class="nav-link" href="/">Dashboard</a>
+                            <a class="nav-link" href="/dashboard">Dashboard</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/signout">Signout</a>
@@ -49,13 +49,12 @@
     <h4>Address: {{ museum.address }}</h4> 
     <h4>Price: ${{ museum.price }}</h4><br>
     <h4>Add your rating and opinion about this museum.</h4>
-    <form action="/add_rating" method="POST">
+    <form action="/add_rating/{{ museum.id }}" method="POST">
         {% csrf_token %}
         <div class="form-row align-items-center">
           <div class="col-auto my-1">
             <label class="mr-sm-2" for="inlineFormCustomSelect">Rating:</label>
-            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-              <option selected>Choose...</option>
+            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="rating">
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>

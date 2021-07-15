@@ -7,12 +7,15 @@ class UserManager(models.Manager):
     def basic_validator(self, postData):
         errors={}
         email_checker = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
-        if len(postData['pw']) < 8:
-            errors['pw'] = "Your password must be at least 8 characters long."
-        if len(postData['fname']) < 2 or len(postData['lname']) < 2:
-            errors['name'] = "Your name must be at least 2 characters long."
+
+        if len(postData['fname']) < 2:
+            errors['fname'] = "Your first name must be at least 2 characters long."
+        if len(postData['lname']) < 2:
+            errors['lname'] = "Your last name must be at least 2 characters long."
         if not email_checker.match(postData['email']):
             errors['email'] = "You must enter a valid email."
+        if len(postData['pw']) < 8:
+            errors['pw'] = "Your password must be at least 8 characters long."
         if postData['pw'] != postData['confpw']:
             errors['pw'] = "Your password and confirm password must match."
         return errors

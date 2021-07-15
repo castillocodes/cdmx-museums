@@ -47,7 +47,7 @@ def login(request):
                 request.session['user_id'] = logged_user.id
                 request.session['user_fname'] = logged_user.first_name
                 request.session['user_lname'] = logged_user.last_name
-                return redirect('/')
+                return redirect('/dashboard')
             else:
                 return render(request, 'login.html')
         else:
@@ -55,7 +55,6 @@ def login(request):
     else:
         return render(request, 'login.html')     
                     
-
 def signout(request):
     print(request.session)
     request.session.flush()
@@ -76,9 +75,8 @@ def rate(request, id):
     }
     return render(request, 'rate_and_comment.html', context)
 
-def add_rating(request):
+def add_rating(request, id):
     if request.method == "POST":
-        id = request.POST['museum_id']
         museum_to_rate = Museum.objects.get(id=id)
         user_id = request.session['user_id']
         opinion = request.POST['opinion']
@@ -86,8 +84,20 @@ def add_rating(request):
         Opinion.objects.create(text=opinion, user=user, museum=museum_to_rate)
         rating = request.POST['rating']
         Rating.objects.create(rating=rating, user=user, museum=museum_to_rate)
-        return redirect('/')
+        return redirect('/dashboard')
     return redirect('/')
+
+def dashboard(request):
+    user = User.objects.get(id=request.session['user_id'])
+    all_museums = Museum.objects.all()
+    all_opinions = Opinion.objects.all()
+    context = {
+        "user" : user,
+        "all_museums" : all_museums,
+        "all_opinions" : all_opinions,
+        "museums": Museum.objects.all()
+    }
+    return render(request, 'dashboard.html', context)
 
 def edit_rating_opinion(request, museum_id):
     museum = Museum.objects.get(id=museum_id)
@@ -118,3 +128,25 @@ def modify_edit_opinion(request):
         opinion.text = edited_opinion
         opinion.save()
     return redirect('/')
+
+def rate_feed(request):
+    all_ratings = Rating.objects.all()
+    all_opinions = Opinion.objects.all()
+    context = {
+        "all_ratings" : all_ratings,
+        "all_opinions" : all_opinions
+    }
+    return render(request, 'rate_feed.html', context)
+
+def delete_rating(request, id):
+    museum = Museum.objects.get(id=id)
+    user = User.objects.get(id=request.session['user_id'])
+    rating_query = Rating.objects.filter(museum=museum).filter(user=user)
+    rating = rating_query[0]
+    opinion_query = Opinion.objects.filter(museum=museum).filter(user=user)
+    opinion = opinion_query[0]
+    print('Rating to delete:', rating.__dict__)
+    print('Opinion to delete:', opinion.__dict__)
+    rating.delete()
+    opinion.delete()
+    return redirect(request.META["HTTP_REFERER"])

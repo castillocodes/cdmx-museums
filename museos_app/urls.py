@@ -6,6 +6,8 @@ urlpatterns = [
     path('signup', views.signup),
     path('login', views.login),
     path('museum/<int:id>', views.rate),
-    path('add_rating', views.add_rating),
-    path('signout', views.signout)
+    path('add_rating/<int:id>', views.add_rating),
+    path('signout', views.signout),
+    path('rate-feed', views.add_rating),
+    path('dashboard', views.dashboard)
 ]
