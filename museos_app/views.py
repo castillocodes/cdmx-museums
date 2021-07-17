@@ -142,9 +142,11 @@ def modify_edit_opinion(request, id):
     return redirect('/dashboard')
 
 def rate_feed(request):
+    #user = User.objects.get(id=request.session['user_id'])
     all_ratings = Rating.objects.all()
     all_opinions = Opinion.objects.all()
     context = {
+        #"user" : user,
         "all_ratings" : all_ratings,
         "all_opinions" : all_opinions
     }
