@@ -26,18 +26,6 @@ def signup(request):
         return redirect('/login')
     return render(request, 'signup.html')
 
-# def login(request):
-#     if request.method == "POST":
-#         email = request.POST['email']
-#         password = request.POST['pw']
-#         if not User.objects.authenticate(email, password):
-#             messages.error(request, 'Invalid email/password')
-#             return redirect('/login')
-#         user = User.objects.get(email=email)
-#         request.session['user_id'] = user.id
-#         return redirect('/')
-#     return render(request, 'login.html')
-
 def login(request):
     if request.method == 'POST':
         logged_user = User.objects.filter(email = request.POST['email'])
@@ -142,11 +130,9 @@ def modify_edit_opinion(request, id):
     return redirect('/dashboard')
 
 def rate_feed(request):
-    #user = User.objects.get(id=request.session['user_id'])
     all_ratings = Rating.objects.all()
     all_opinions = Opinion.objects.all()
     context = {
-        #"user" : user,
         "all_ratings" : all_ratings,
         "all_opinions" : all_opinions
     }

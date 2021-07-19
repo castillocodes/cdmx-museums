@@ -31,7 +31,7 @@ class Museum(models.Model):
     museum = models.CharField(max_length=50)
     price = models.DecimalField(max_digits=5, decimal_places=2)
     address = models.CharField(max_length=200)
-
+    users = models.ManyToManyField(User, related_name="museums")
     def __str__(self):
         return f"{self.museum} {self.address} {self.price}"
 
