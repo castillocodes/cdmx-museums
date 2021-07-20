@@ -87,11 +87,9 @@ def dashboard(request):
 def contributions(request):
     user = User.objects.get(id=request.session['user_id'])
     all_museums = Museum.objects.all()
-    #all_opinions = Opinion.objects.all()
     context = {
         "user" : user,
         "all_museums" : all_museums,
-        #"all_opinions" : all_opinions,
         "museums": Museum.objects.all()
     }
     return render(request, 'your_ratings.html', context)
@@ -132,14 +130,9 @@ def rate_feed(request):
     return render(request, 'rate_feed.html', context)
 
 def delete_rating(request, id):
-    museum = Museum.objects.get(id=id)
     user = User.objects.get(id=request.session['user_id'])
-    rating_query = Rating.objects.filter(museum=museum).filter(user=user)
+    rating_query = Rating.objects.filter(id=id).filter(user=user)
     rating = rating_query[0]
-    opinion_query = Opinion.objects.filter(museum=museum).filter(user=user)
-    opinion = opinion_query[0]
     print('Rating to delete:', rating.__dict__)
-    print('Opinion to delete:', opinion.__dict__)
     rating.delete()
-    opinion.delete()
     return redirect(request.META["HTTP_REFERER"])
