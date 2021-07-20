@@ -58,7 +58,7 @@
                                 <span><a class="delete-text" href="/rating/delete/{{i.museum.id}}">Delete</a></span>
                             </li>
                             {% for j in all_opinions %}
-                                {% if j.museum.id == i.museum.id %}
+                                {% if j.user.id == i.user.id and j.museum.id == i.museum.id%}
                                     <p class="opinion-text">Your opinion: {{ j.text }}</p>
                                 {% endif %}
                             {% endfor %}
@@ -68,7 +68,7 @@
                                 <span class="updated-time-text">{{i.updated_at}}</span>
                             </li>
                             {% for j in all_opinions %}
-                                {% if j.museum.id == i.museum.id %}
+                                {% if j.user.id == i.user.id %}
                                     <p class="opinion-text">{{i.user.first_name}}'s opinion: {{ j.text }}</p>
                                 {% endif %}
                             {% endfor %}

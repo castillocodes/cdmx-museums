@@ -56,7 +56,7 @@
                             <span class="updated-time-text">{{i.updated_at}} <a href="/edit-rating-opinion/{{i.museum.id}}">Edit</a></span>
                             <span><a class="delete-text" href="/rating/delete/{{i.museum.id}}">Delete</a></span>
                         </li>
-                        {% for j in all_opinions %}
+                        {% for j in user.opinions.all %}
                             {% if j.museum.id == i.museum.id %}
                                 <p class="opinion-text">Your opinion: {{ j.text }}</p>
                             {% endif %}

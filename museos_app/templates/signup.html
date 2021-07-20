@@ -43,9 +43,9 @@
             </div>
         </div>
     </nav>
-</div>
+</div><br>
     <div class="wrapper">
-        <div class="row">
+        <div class="container">
             <div class="col5">
                 <h1>Signup</h1>
                 <form action="/signup" method="POST">
@@ -67,20 +67,22 @@
                     <br>
                     <div class="form-group">
                         <label for="pw">Password:</label>
-                        <input name= "pw" type="password" size="25" placeholder="Must be at least 8 characters">
+                        <input name= "pw" type="password" size="25"><br>
+                        <small id="emailHelp" class="form-text text-muted">Must be at least 8 characters.</small>
                     </div>
                     <br>
                     <div class="form-group">
                         <label for="confpw">Confirm Password:</label>
-                        <input name= "confpw" type="password" size="25" placeholder="Must match above password">
+                        <input name= "confpw" type="password" size="25"><br>
+                        <small id="emailHelp" class="form-text text-muted">Must match above password.</small>
                     </div>
                     <br>
                     <div class="form_group">
-                        <button class="btn btn_primary" type="submit">Register</button>
+                        <button class="btn btn-primary" type="submit">Register</button>
                         {% if messages %}
                     <ul>
                         {% for message in messages %}
-                        <li class="errors">
+                        <li class="errors" style="color: red;">
                             {{ message }}
                         </li>
                         {% endfor %}

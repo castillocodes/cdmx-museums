@@ -45,7 +45,7 @@
         </nav>
     </div>
     <div class="container">
-        <div class="row">
+        <div class="row" style= "margin-top: 25px;">
             <div class="col-8">
                 <h2>Welcome, {{ user.first_name }} {{ user.last_name }} !</h2>
                 <h3>Your ratings:</h3>
@@ -56,7 +56,7 @@
                             <span class="updated-time-text">{{i.updated_at}} <a href="/edit-rating-opinion/{{i.museum.id}}">Edit</a></span>
                             <span><a class="delete-text" href="/rating/delete/{{i.museum.id}}">Delete</a></span>
                         </li>
-                        {% for j in all_opinions %}
+                        {% for j in user.opinions.all %}
                             {% if j.museum.id == i.museum.id %}
                                 <p class="opinion-text">Your opinion: {{ j.text }}</p>
                             {% endif %}
@@ -71,7 +71,7 @@
     {% if messages %}
                     <ul>
                         {% for message in messages %}
-                        <li class="errors">
+                        <li class="errors" style="color: red">
                             {{ message }}
                         </li>
                         {% endfor %}
@@ -93,7 +93,7 @@
                     <th>{{ museum.id }}</th>
                     <th>{{ museum.museum }}</th>
                     <th>${{ museum.price }}</th>
-                    <th><a href="https://www.google.com/maps/search/{{ museum.museum }}/">{{ museum.address }}</a></th>
+                    <th><a href="https://www.google.com/maps/search/{{ museum.museum }}/" target="_blank" rel="noopener noreferrer">{{ museum.address }}</a></th>
                     <th><a href="/museum/{{ museum.id }}">Rate</a></th>
                 </tr>
             {% endfor %}

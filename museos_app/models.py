@@ -31,7 +31,7 @@ class Museum(models.Model):
     museum = models.CharField(max_length=50)
     price = models.DecimalField(max_digits=5, decimal_places=2)
     address = models.CharField(max_length=200)
-    users = models.ManyToManyField(User, related_name="museums")
+    
     def __str__(self):
         return f"{self.museum} {self.address} {self.price}"
 
@@ -46,7 +46,7 @@ class RatingManager(models.Manager):
 class Rating(models.Model):
     rating = models.IntegerField()
     user = models.ForeignKey(User, related_name="ratings", on_delete=models.CASCADE)
-    museum = models.OneToOneField(Museum, on_delete=models.CASCADE, primary_key=True)
+    museum = models.ForeignKey(Museum, related_name="valuaciones", on_delete=models.CASCADE)
     created_at = DateTimeField(auto_now_add=True, null=True)
     updated_at = DateTimeField(auto_now=True, null=True)
     objects = RatingManager()
@@ -54,6 +54,6 @@ class Rating(models.Model):
 class Opinion(models.Model):
     text = models.TextField()
     user = models.ForeignKey(User, related_name="opinions", on_delete=models.CASCADE)
-    museum = models.OneToOneField(Museum, on_delete=models.CASCADE, primary_key=True)
+    museum = models.ForeignKey(Museum, related_name="opiniones", on_delete=models.CASCADE)
     created_at = DateTimeField(auto_now_add=True, null=True)
     updated_at = DateTimeField(auto_now=True, null=True)
