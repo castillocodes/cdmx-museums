@@ -47,27 +47,35 @@
     <div class="container">
         <div class="row" style= "margin-top: 25px;">
             <div class="col-8">
-                <h2>Welcome, {{ user.first_name }} {{ user.last_name }} !</h2>
-                <h3>Your ratings:</h3>
-                <ul class="list-group sm-margin-top">
-                    {% for i in user.ratings.all %}
-                        <li class="list-group-item">
-                            You rated <b>{{i.museum.museum}}</b> with a score of <strong style="color:green;">{{i.rating}}</strong> on
-                            <span class="updated-time-text" style="color: darkgray">{{i.updated_at}} <a href="/edit-rating-opinion/{{i.id}}">Edit</a></span>
-                            <span><a class="delete-text" style="color: red" href="/rating/delete/{{i.museum.id}}">Delete</a></span>
-                        </li>
-                        {% for j in user.opinions.all %}
-                            {% if j.museum.id == i.museum.id %}
-                                <p class="opinion-text" style="margin-left: 30px;">Your opinion: <i>"{{ j.text }}"</i></p>
-                            {% endif %}
+                <h2>Welcome, {{ user.first_name }} {{ user.last_name }} !</h2><br> 
+                <button class="btn btn-primary" onclick="myFunction()" style="margin-bottom: 10px;">Your Ratings:</button>
+                <div id="myDIV">
+                    <ul class="list-group sm-margin-top">
+                        {% for i in user.ratings.all %}
+                            <li class="list-group-item">
+                                You rated <b>{{i.museum.museum}}</b> with a score of <strong style="color:green;">{{i.rating}}</strong> on
+                                <span class="updated-time-text" style="color: darkgray">{{i.updated_at}} <a href="/edit-rating-opinion/{{i.id}}">Edit</a></span>
+                                <span><a class="delete-text" style="color: red" href="/rating/delete/{{i.id}}">Delete</a></span>
+                            </li>
+                                <p class="opinion-text" style="margin-left: 30px;">Your opinion: <i>"{{ i.text }}"</i></p>
                         {% endfor %}
-                    {% endfor %}
-                </ul>
+                    </ul>
+                </div>
+                <script>
+                    function myFunction() {
+                      var x = document.getElementById("myDIV");
+                      if (x.style.display === "none") {
+                        x.style.display = "block";
+                      } else {
+                        x.style.display = "none";
+                      }
+                    }
+                    </script>
             </div>
         </div>
     </div>
     <div class="container">
-    <h3>Museums of Mexico City</h3>
+    <h1 style="text-align:center">Museums of Mexico City</h1>
     {% if messages %}
                     <ul>
                         {% for message in messages %}

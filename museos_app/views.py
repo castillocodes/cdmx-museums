@@ -69,20 +69,17 @@ def add_rating(request, id):
         user_id = request.session['user_id']
         opinion = request.POST['opinion']
         user = User.objects.get(id=user_id)
-        Opinion.objects.create(text=opinion, user=user, museum=museum_to_rate)
         rating = request.POST['rating']
-        Rating.objects.create(rating=rating, user=user, museum=museum_to_rate)
+        Rating.objects.create(rating=rating, user=user, museum=museum_to_rate, text=opinion)
         return redirect('/dashboard')
     return redirect('/')
 
 def dashboard(request):
     user = User.objects.get(id=request.session['user_id'])
     all_museums = Museum.objects.all()
-    all_opinions = Opinion.objects.all()
     context = {
         "user" : user,
         "all_museums" : all_museums,
-        "all_opinions" : all_opinions,
         "museums": Museum.objects.all()
     }
     return render(request, 'dashboard.html', context)
@@ -90,11 +87,11 @@ def dashboard(request):
 def contributions(request):
     user = User.objects.get(id=request.session['user_id'])
     all_museums = Museum.objects.all()
-    all_opinions = Opinion.objects.all()
+    #all_opinions = Opinion.objects.all()
     context = {
         "user" : user,
         "all_museums" : all_museums,
-        "all_opinions" : all_opinions,
+        #"all_opinions" : all_opinions,
         "museums": Museum.objects.all()
     }
     return render(request, 'your_ratings.html', context)
@@ -102,10 +99,8 @@ def contributions(request):
 def edit_rating_opinion(request, rating_id):
     museum_rating = Rating.objects.get(id=rating_id)
     museum = Museum.objects.get(id=museum_rating.museum_id)
-    museum_opinion = Opinion.objects.get(museum=museum)
     context = {
         "rating": museum_rating,
-        "opinion": museum_opinion,
         "museum" : museum
     }
     return render(request, 'edit_opinion.html', context)
@@ -131,10 +126,8 @@ def modify_edit_opinion(request, id):
 
 def rate_feed(request):
     all_ratings = Rating.objects.all()
-    all_opinions = Opinion.objects.all()
     context = {
-        "all_ratings" : all_ratings,
-        "all_opinions" : all_opinions
+        "all_ratings" : all_ratings
     }
     return render(request, 'rate_feed.html', context)
 

@@ -45,15 +45,9 @@ class RatingManager(models.Manager):
 
 class Rating(models.Model):
     rating = models.IntegerField()
+    text = models.TextField()
     user = models.ForeignKey(User, related_name="ratings", on_delete=models.CASCADE)
     museum = models.ForeignKey(Museum, related_name="valuaciones", on_delete=models.CASCADE)
     created_at = DateTimeField(auto_now_add=True, null=True)
     updated_at = DateTimeField(auto_now=True, null=True)
     objects = RatingManager()
-
-class Opinion(models.Model):
-    text = models.TextField()
-    user = models.ForeignKey(User, related_name="opinions", on_delete=models.CASCADE)
-    museum = models.ForeignKey(Museum, related_name="opiniones", on_delete=models.CASCADE)
-    created_at = DateTimeField(auto_now_add=True, null=True)
-    updated_at = DateTimeField(auto_now=True, null=True)
