@@ -99,9 +99,9 @@ def contributions(request):
     }
     return render(request, 'your_ratings.html', context)
 
-def edit_rating_opinion(request, id):
-    museum = Museum.objects.get(id=id)
-    museum_rating = Rating.objects.get(museum=museum)
+def edit_rating_opinion(request, rating_id):
+    museum_rating = Rating.objects.get(id=rating_id)
+    museum = Museum.objects.get(id=museum_rating.museum_id)
     museum_opinion = Opinion.objects.get(museum=museum)
     context = {
         "rating": museum_rating,

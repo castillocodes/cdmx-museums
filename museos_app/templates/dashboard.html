@@ -53,7 +53,7 @@
                     {% for i in user.ratings.all %}
                         <li class="list-group-item">
                             You rated <b>{{i.museum.museum}}</b> with a score of <strong style="color:green;">{{i.rating}}</strong> on
-                            <span class="updated-time-text" style="color: darkgray">{{i.updated_at}} <a href="/edit-rating-opinion/{{i.museum.id}}">Edit</a></span>
+                            <span class="updated-time-text" style="color: darkgray">{{i.updated_at}} <a href="/edit-rating-opinion/{{i.id}}">Edit</a></span>
                             <span><a class="delete-text" style="color: red" href="/rating/delete/{{i.museum.id}}">Delete</a></span>
                         </li>
                         {% for j in user.opinions.all %}
