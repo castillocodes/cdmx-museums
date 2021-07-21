@@ -8,7 +8,7 @@
     <title>Your Curater Dashboard</title>
 </head>
 <body>
-        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd; padding-bottom:10px; padding-top: 14px;">
             <div class="container">
                 <div class="navbar-header">
                     <a href="/dashboard" class="navbar-brand">Curater</a>
@@ -48,7 +48,7 @@
         <div class="row" style= "margin-top: 25px;">
             <div class="col-8">
                 <h2>Welcome, {{ user.first_name }} {{ user.last_name }} !</h2><br> 
-                <button class="btn btn-primary" onclick="myFunction()" style="margin-bottom: 10px;">Your Ratings:</button>
+                <button class="btn btn-primary" onclick="myFunction()" style="margin-bottom: 10px;">Your Ratings &#9660;</button>
                 <div id="myDIV">
                     <ul class="list-group sm-margin-top">
                         {% for i in user.ratings.all %}
@@ -75,7 +75,7 @@
         </div>
     </div>
     <div class="container">
-    <h1 style="text-align:center">Museums of Mexico City</h1>
+    <h1 style="text-align:center; margin-top: 10px">Museums of Mexico City</h1>
     {% if messages %}
                     <ul>
                         {% for message in messages %}
@@ -85,20 +85,20 @@
                         {% endfor %}
                     </ul>
                     {% endif %}
-        <table class="table table-light">
+        <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Museum</th>
-                    <th>Price (pesos)</th>
-                    <th>Address</th>
-                    <th>Rate Museum</th>
+                    <!--th>ID</th-->
+                    <th>MUSEUM</th>
+                    <th>PRICE (pesos)</th>
+                    <th>ADDRESS</th>
+                    <th>RATE MUSEUM</th>
                 </tr>
             </thead>
             <tbody>
             {% for museum in museums %}
                 <tr>
-                    <th>{{ museum.id }}</th>
+                    <!--th>{{ museum.id }}</th-->
                     <th>{{ museum.museum }}</th>
                     <th>${{ museum.price }}</th>
                     <th><a href="https://www.google.com/maps/search/{{ museum.museum }}/" target="_blank" rel="noopener noreferrer">{{ museum.address }}</a></th>
