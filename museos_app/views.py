@@ -111,15 +111,11 @@ def modify_edit_opinion(request, id):
         user = User.objects.get(id=request.session['user_id'])
         rating_query = Rating.objects.filter(museum=museum).filter(user=user)
         rating = rating_query[0]
-        opinion_query = Opinion.objects.filter(museum=museum).filter(user=user)
-        opinion = opinion_query[0]
         print('Rating to delete:', rating.__dict__)
-        print('Rating to delete:', opinion.__dict__)
 
         rating.rating = edited_rating
+        rating.text = edited_opinion
         rating.save()
-        opinion.text = edited_opinion
-        opinion.save()
     return redirect('/dashboard')
 
 def rate_feed(request):
