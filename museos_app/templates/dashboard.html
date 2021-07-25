@@ -7,8 +7,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>Your Curater Dashboard</title>
 </head>
-<body>
-        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd; padding-bottom:10px; padding-top: 14px;">
+<body style="background-color: #FFF0E2;">
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #4EBBB5; padding-bottom:10px; padding-top: 14px;">
             <div class="container">
                 <div class="navbar-header">
                     <a href="/dashboard" class="navbar-brand">Curater</a>
@@ -47,30 +47,30 @@
     <div class="container">
         <div class="row" style= "margin-top: 25px;">
             <div class="col-8">
-                <h2>Welcome, {{ user.first_name }} {{ user.last_name }} !</h2><br> 
-                <button class="btn btn-primary" onclick="myFunction()" style="margin-bottom: 10px;">Your Ratings &#9660;</button>
-                <div id="myDIV">
-                    <ul class="list-group sm-margin-top">
-                        {% for i in user.ratings.all %}
-                            <li class="list-group-item">
-                                You rated <b>{{i.museum.museum}}</b> with a score of <strong style="color:green;">{{i.rating}}</strong> on
-                                <span class="updated-time-text" style="color: darkgray">{{i.updated_at}} <a href="/edit-rating-opinion/{{i.id}}">Edit</a></span>
-                                <span><a class="delete-text" style="color: red" href="/rating/delete/{{i.id}}">Delete</a></span>
-                            </li>
-                                <p class="opinion-text" style="margin-left: 30px;">Your opinion: <i>"{{ i.text }}"</i></p>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <script>
-                    function myFunction() {
-                      var x = document.getElementById("myDIV");
-                      if (x.style.display === "none") {
-                        x.style.display = "block";
-                      } else {
-                        x.style.display = "none";
-                      }
-                    }
-                    </script>
+                <h2>Welcome, {{ user.first_name }} {{ user.last_name }} !</h2><br>            
+                    <button class="btn btn-primary" onclick="myFunction()" style="margin-bottom: 10px; border: #F9C837; background-color: #F9C837;">Your Ratings &#9660;</button>
+                    <div id="myDIV">
+                        <ul class="list-group sm-margin-top">
+                            {% for i in user.ratings.all %}
+                                <li class="list-group-item">
+                                    You rated <b>{{i.museum.museum}}</b> with a score of <strong style="color:green;">{{i.rating}}</strong> on
+                                    <span class="updated-time-text" style="color: darkgray">{{i.updated_at}} <a href="/edit-rating-opinion/{{i.id}}">Edit</a></span>
+                                    <span><a class="delete-text" style="color: red" href="/rating/delete/{{i.id}}">Delete</a></span>
+                                </li>
+                                    <p class="opinion-text" style="margin-left: 30px;">Your opinion: <i>"{{ i.text }}"</i></p>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <script>
+                        function myFunction() {
+                        var x = document.getElementById("myDIV");
+                        if (x.style.display === "none") {
+                            x.style.display = "block";
+                        } else {
+                            x.style.display = "none";
+                        }
+                        }
+                        </script>
             </div>
         </div>
     </div>
