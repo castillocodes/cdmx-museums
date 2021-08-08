@@ -10,6 +10,6 @@ The design has been made responsive through the use of Bootstrap and jQuery.
 Sergio Castillo: <a href="https://github.com/castillocodes">https://github.com/castillocodes</a>
 <h2>Demo</h2>
 <h3>User Dashboard</h3>
-![user_dash](user_dash.gif)
+![user_dash](cdmx-museums/user_dash.gif)
 <h3>Review Page</h3>
 ...
