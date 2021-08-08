@@ -12,4 +12,4 @@ Sergio Castillo: <a href="https://github.com/castillocodes">https://github.com/c
 <h3>User Dashboard</h3>
 <img src="user_dash.gif">
 <h3>Review Page</h3>
-...
+<img src="review_page.gif">
