@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Curater - Your Ratings</title>
+</head>
+<body style="background-color: #FFF0E2;">
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #4EBBB5; padding-bottom:10px; padding-top: 14px;">
+            <div class="container">
+                <div class="navbar-header">
+                    <a href="/dashboard" class="navbar-brand">Curater</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/signup">Signup</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/rate-feed">Rate Feed</a>
+                        </li>
+                        {% if 'user_id' in request.session %}
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/your-ratings"><b>Your Ratings</b></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/dashboard">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/signout">Signout</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+                <br>
+                <h3>Your ratings:</h3>
+                <ul class="list-group sm-margin-top">
+                    {% for i in user.ratings.all %}
+                        <li class="list-group-item">
+                            You rated <b>{{i.museum.museum}}</b> with a score of <strong style="color:green;">{{i.rating}}</strong> on
+                            <span class="updated-time-text" style="color: darkgray">{{i.updated_at}} <a href="/edit-rating-opinion/{{i.id}}">Edit</a></span>
+                            <span><a class="delete-text" style="color: red" href="/rating/delete/{{i.id}}">Delete</a></span>
+                        </li>
+                            <p class="opinion-text" style="margin-left: 30px;">Your opinion: <i>"{{ i.text }}"</i></p>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

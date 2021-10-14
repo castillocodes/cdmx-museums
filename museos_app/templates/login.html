@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Login</title>
+</head>
+<body style="background-color: #FFF0E2;">
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #4EBBB5; padding-bottom:10px; padding-top: 14px;">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="/" class="navbar-brand">Curater</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/login"><b>Login</b></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/signup">Signup</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/rate-feed">Rate Feed</a>
+                    </li>
+                    {% if 'user_id' in request.session %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/your-ratings">Your Ratings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dashboard">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/signout">Signout</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div><br>
+    <div class="container">
+        <h1>Login</h1>
+        {% if 'user_id' in request.session %}
+            <h6 style="color:green">*Successful registration*</h6>
+        {% endif %}
+        <form action="/login" method="POST" class="form-container">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input class="form-group" name="email" type="text" aria-describedby="emailHelp" placeholder="{{user.email}}"><br>
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="pw">Password:</label>
+                <input class="form-group" name="pw" type="password">
+            </div><br>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox"> Remember me
+                </label>
+            </div>
+            <button class="btn btn-primary" type="submit" style="margin-bottom: 10px; border: #F9C837; background-color: #F9C837;">Login</button>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>
